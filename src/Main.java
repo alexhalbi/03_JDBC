@@ -62,7 +62,6 @@ public class Main {
 			statement.executeUpdate("DELETE FROM `schuldatenbank`.`s_schueler` WHERE `s_id`='2'");
 			selectSchueler = statement.executeQuery("SELECT * FROM s_schueler");
 			printSchueler(selectSchueler);
-
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
