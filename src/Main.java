@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,10 +43,23 @@ public class Main {
 			selectSchueler2 = statement
 					.executeQuery("SELECT * FROM s_schueler where s_id = 2");
 			printSchueler(selectSchueler2);
+			
+			System.out.println("Update with preparedStatement:");
+			String template =
+					"UPDATE `schuldatenbank`.`s_schueler` SET `s_gebdat`=? WHERE `s_id`=?";
+			PreparedStatement inserter =
+					connection.prepareStatement(template);
+			
+			inserter.setString(1, "1996-06-15");
+			inserter.setInt(2, 2);			
+			inserter.executeUpdate();
+			
+			selectSchueler2 = statement
+					.executeQuery("SELECT * FROM s_schueler where s_id = 2");
+			printSchueler(selectSchueler2);
 
 			System.out.println("Delete:");
-			statement
-					.executeUpdate("DELETE FROM `schuldatenbank`.`s_schueler` WHERE `s_id`='2'");
+			statement.executeUpdate("DELETE FROM `schuldatenbank`.`s_schueler` WHERE `s_id`='2'");
 			selectSchueler = statement.executeQuery("SELECT * FROM s_schueler");
 			printSchueler(selectSchueler);
 
